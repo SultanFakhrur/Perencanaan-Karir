@@ -6,16 +6,16 @@
   <title>Career AI Planner</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
     }
 
     header {
       background-color: #3b82f6;
-      padding: 1em;
       color: white;
       text-align: center;
+      padding: 1em 0;
     }
 
     nav a {
@@ -24,25 +24,20 @@
       text-decoration: none;
     }
 
-    h2 {
-      color: #333;
-    }
-
     section {
       padding: 20px;
     }
 
-    .career-img {
-      width: 200px;
-      display: block;
-      margin: 10px auto;
+    h2 {
+      color: #333;
     }
 
     button {
       background-color: #3b82f6;
       color: white;
-      padding: 10px 15px;
       border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
       cursor: pointer;
     }
 
@@ -54,7 +49,7 @@
       text-align: center;
       background-color: #f1f1f1;
       padding: 1em;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     ul {
@@ -75,7 +70,6 @@
 
   <section id="home">
     <h2>Temukan Karir yang Cocok untukmu!</h2>
-    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Career Image" class="career-img">
     <form id="careerForm">
       <p>Pilih sifat yang paling menggambarkan dirimu:</p>
       <label><input type="checkbox" value="Kreatif"> Kreatif</label><br>
@@ -93,8 +87,8 @@
     <h2>Fitur Aplikasi</h2>
     <ul>
       <li>Memilih sifat dominan pengguna</li>
-      <li>Rekomendasi karir sesuai kepribadian</li>
-      <li>Tampilan gambar pendukung</li>
+      <li>Memberikan rekomendasi karir sesuai kepribadian</li>
+      <li>Tanpa gambar, ringan, bisa langsung dibuka di browser dan deploy ke Vercel</li>
     </ul>
   </section>
 
@@ -121,19 +115,19 @@
       ceklis.forEach((item) => {
         switch (item.value) {
           case "Kreatif":
-            rekomendasi += "🎨 Desainer Grafis, Penulis, Content Creator<br>";
+            rekomendasi += "- Desainer, Content Creator, Penulis<br>";
             break;
           case "Analitis":
-            rekomendasi += "📊 Data Analyst, Analis Keuangan, Ilmuwan<br>";
+            rekomendasi += "- Data Analyst, Akuntan, Peneliti<br>";
             break;
           case "Pemimpin":
-            rekomendasi += "👔 Manajer Proyek, CEO, Pengusaha<br>";
+            rekomendasi += "- Manajer Proyek, Pengusaha, CEO<br>";
             break;
           case "Teliti":
-            rekomendasi += "🧪 Peneliti, Akuntan, Quality Control<br>";
+            rekomendasi += "- Quality Control, Editor, Auditor<br>";
             break;
           case "Petualang":
-            rekomendasi += "🌏 Travel Blogger, Fotografer Alam, Pilot<br>";
+            rekomendasi += "- Travel Blogger, Pilot, Fotografer Alam<br>";
             break;
         }
       });
@@ -141,5 +135,6 @@
       hasil.innerHTML = `<h3>Rekomendasi Karirmu:</h3><p>${rekomendasi}</p>`;
     }
   </script>
+
 </body>
 </html>
