@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerAI Visual Planner</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+    <style>
+        body { font-family: 'Roboto', sans-serif; margin: 0; background: #f1f1f1; color: #333; }
+        header {
+            background: #007bff;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        main {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        h2 { color: #007bff; font-size: 30px; text-align: center; margin-bottom: 20px; }
+        p { text-align: center; margin-bottom: 30px; font-size: 16px; }
+        .trait-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .trait-list label {
+            display: block;
+            margin: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+        .trait-list input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background: #007bff;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            display: block;
+            margin: 20px auto;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+
+        .career-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .career-item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 8px;
+        }
+        .career-item div {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        footer a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            main { padding: 20px; }
+            .trait-list { flex-direction: column; align-items: flex-start; }
+            button { font-size: 16px; padding: 10px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>CareerAI Visual Planner</h1>
+    <nav>
+        <a href="#home">Beranda</a>
+        <a href="#traits">Pilih Sifat</a>
+        <a href="#result">Hasil</a>
+        <a href="#about">Tentang</a>
+    </nav>
+</header>
+
+<main id="home">
+    <h2>🎯 Temukan Karir Impianmu!</h2>
+    <p>Pilih sifat-sifat yang sesuai dengan kepribadianmu, dan biarkan AI memberikan rekomendasi karier yang cocok!</p>
+
+    <div class="trait-list" id="traits">
+        <label><input type="checkbox" value="analitis"> Analitis</label>
+        <label><input type="checkbox" value="kreatif"> Kreatif</label>
+        <label><input type="checkbox" value="sosial"> Sosial</label>
+        <label><input type="checkbox" value="pemimpin"> Pemimpin</label>
+        <label><input type="checkbox" value="detail"> Detail-oriented</label>
+        <label><input type="checkbox" value="visioner"> Visioner</label>
+        <label><input type="checkbox" value="praktis"> Praktis</label>
+        <label><input type="checkbox" value="komunikatif"> Komunikatif</label>
+        <label><input type="checkbox" value="problem"> Problem Solver</label>
+        <label><input type="checkbox" value="berani"> Berani Ambil Resiko</label>
+        <label><input type="checkbox" value="teknologi"> Senang Teknologi</label>
+        <label><input type="checkbox" value="menulis"> Senang Menulis</label>
+        <label><input type="checkbox" value="berbicara"> Senang Berbicara di Depan Umum</label>
+        <label><input type="checkbox" value="penyayang"> Penyayang Anak-anak</label>
+    </div>
+
+    <button onclick="checkCareer()">Cari Rekomendasi Karir</button>
+
+    <div class="result" id="result"></div>
+</main>
+
+<footer id="about">
+    <p><strong>Perencanaan Karir</strong> dibuat  oleh <strong>Sultan Fakhrur Rassyi</strong><br>
+    Hubungi saya di <a href="mailto:sultanfakhrur@gmail.com">sultanfakhrur@gmail.com</a> • &copy; 2025</p>
+</footer>
+
+<script>
+function checkCareer() {
+    const checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+    let selected = Array.from(checkboxes).map(cb => cb.value);
+    let result = "<h2>📌 Rekomendasi Karir Kamu:</h2>";
+
+    if (selected.length === 0) {
+        result = "<p>⚠️ Silakan pilih minimal satu sifat dulu.</p>";
+    } else {
+        let found = false;
+
+        if (selected.includes("analitis") && selected.includes("visioner")) {
+            result += careerItem("Data Scientist", "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-data-scientist-machine-learning-flaticons-lineal-color-flat-icons.png");
+            found = true;
+        }
+        if (selected.includes("kreatif") && selected.includes("sosial")) {
+            result += careerItem("Desainer Grafis", "https://img.icons8.com/color/64/000000/design.png");
+            found = true;
+        }
+        if (selected.includes("pemimpin") && selected.includes("visioner")) {
+            result += careerItem("Project Manager", "https://img.icons8.com/color/64/000000/task.png");
+            found = true;
+        }
+        if (selected.includes("praktis") && selected.includes("detail")) {
+            result += careerItem("Quality Control Engineer", "https://img.icons8.com/color/64/000000/inspection.png");
+            found = true;
+        }
+        if (selected.includes("komunikatif") && selected.includes("sosial")) {
+            result += careerItem("Public Relations", "https://img.icons8.com/color/64/000000/public-speaking.png");
+            found = true;
+        }
+        if (selected.includes("problem") && selected.includes("berani")) {
+            result += careerItem("Entrepreneur", "https://img.icons8.com/color/64/000000/startup.png");
+            found = true;
+        }
+        if (selected.includes("menulis")) {
+            result += careerItem("Content Writer / Editor", "https://img.icons8.com/color/64/000000/edit-property.png");
+            found = true;        }
+        if (selected.includes("berbicara") && selected.includes("komunikatif")) {
+            result += careerItem("Public Speaker / MC", "https://img.icons8.com/color/64/000000/microphone.png");
+            found = true;
+        }
+        if (selected.includes("teknologi") && selected.includes("problem")) {
+            result += careerItem("Software Developer", "https://img.icons8.com/color/64/000000/source-code.png");
+            found = true;
+        }
+        if (selected.includes("penyayang")) {
+            result += careerItem("Guru / Pengajar", "https://img.icons8.com/color/64/000000/teacher.png");
+            found = true;
+        }
+
+        if (!found) {
+            result += "<p>✨ Kamu tipe Generalist — bisa eksplor banyak bidang!</p>";
+        }
+    }
+
+    document.getElementById("result").innerHTML = result;
+    document.getElementById("result").style.display = 'block'; // Show results
+}
+
+function careerItem(title, imageUrl) {
+    return `
+    <div class="career-item">
+        <img src="${imageUrl}" alt="${title}">
+        <div>${title}</div>
+    </div>`;
+}
+</script>
+
+</body>
+</html>
+
+
