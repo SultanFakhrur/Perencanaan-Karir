@@ -1,138 +1,125 @@
+career-ai-planner/
+ └── index.html
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Career AI Planner</title>
+  <title>CareerAI Planner</title>
+
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
       margin: 0;
       padding: 0;
-    }
-
-    header {
-      background-color: #3b82f6;
-      color: white;
       text-align: center;
-      padding: 1em 0;
     }
-
-    nav a {
-      color: white;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-
-    section {
+    header {
+      background: #673ab7;
+      color: #fff;
       padding: 20px;
     }
-
-    h2 {
-      color: #333;
+    h1 {
+      margin: 0;
+      font-size: 2rem;
     }
-
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
     button {
-      background-color: #3b82f6;
-      color: white;
+      background: #673ab7;
+      color: #fff;
       border: none;
-      padding: 10px 15px;
-      margin-top: 10px;
       cursor: pointer;
     }
-
     button:hover {
-      background-color: #2563eb;
+      background: #512da8;
     }
-
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #333;
+      font-weight: bold;
+    }
     footer {
-      text-align: center;
-      background-color: #f1f1f1;
-      padding: 1em;
-      margin-top: 30px;
-    }
-
-    ul {
-      line-height: 1.8;
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #555;
     }
   </style>
 </head>
+
 <body>
 
   <header>
-    <h1>Career AI Planner</h1>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#fitur">Fitur</a>
-      <a href="#tentang">Tentang</a>
-    </nav>
+    <h1>CareerAI Planner</h1>
+    <p>Temukan rencana karirmu berdasarkan sifat pribadi!</p>
   </header>
 
-  <section id="home">
-    <h2>Temukan Karir yang Cocok untukmu!</h2>
-    <form id="careerForm">
-      <p>Pilih sifat yang paling menggambarkan dirimu:</p>
-      <label><input type="checkbox" value="Kreatif"> Kreatif</label><br>
-      <label><input type="checkbox" value="Analitis"> Analitis</label><br>
-      <label><input type="checkbox" value="Pemimpin"> Pemimpin</label><br>
-      <label><input type="checkbox" value="Teliti"> Teliti</label><br>
-      <label><input type="checkbox" value="Petualang"> Petualang</label><br><br>
-      <button type="button" onclick="rekomendasikanKarir()">Lihat Rekomendasi Karir</button>
-    </form>
+  <div class="container">
+    <label for="sifat">Pilih sifat dominanmu:</label>
+    <select id="sifat">
+      <option value="">-- Pilih salah satu --</option>
+      <option value="analitis">Analitis</option>
+      <option value="kreatif">Kreatif</option>
+      <option value="sosial">Sosial</option>
+      <option value="organisator">Organisator</option>
+      <option value="teknis">Teknis</option>
+    </select>
 
-    <div id="hasil" style="margin-top:20px;"></div>
-  </section>
+    <button onclick="rekomendasikanKarir()">Lihat Rekomendasi Karir</button>
 
-  <section id="fitur">
-    <h2>Fitur Aplikasi</h2>
-    <ul>
-      <li>Memilih sifat dominan pengguna</li>
-      <li>Memberikan rekomendasi karir sesuai kepribadian</li>
-      <li>Tanpa gambar, ringan, bisa langsung dibuka di browser dan deploy ke Vercel</li>
-    </ul>
-  </section>
-
-  <section id="tentang">
-    <h2>Tentang Pengembang</h2>
-    <p>Aplikasi ini dibuat oleh <strong>Sultan Fakhrur Rassyi</strong>, sebagai media interaktif untuk membantu generasi muda merencanakan karir impian mereka.</p>
-  </section>
+    <div class="result" id="hasil"></div>
+  </div>
 
   <footer>
-    <p>&copy; 2025 Sultan Fakhrur Rassyi</p>
+    Dibuat oleh <strong>Sultan Fakhrur Rassyi</strong> &copy; 2025
   </footer>
 
   <script>
     function rekomendasikanKarir() {
-      const hasil = document.getElementById("hasil");
-      const ceklis = document.querySelectorAll("#careerForm input[type='checkbox']:checked");
-      let rekomendasi = "";
+      var sifat = document.getElementById("sifat").value;
+      var hasil = document.getElementById("hasil");
+      var rekomendasi = "";
 
-      if (ceklis.length === 0) {
-        hasil.innerHTML = "<p>Silakan pilih minimal satu sifat!</p>";
+      if (sifat === "") {
+        hasil.innerHTML = "Silakan pilih sifat terlebih dahulu!";
         return;
       }
 
-      ceklis.forEach((item) => {
-        switch (item.value) {
-          case "Kreatif":
-            rekomendasi += "- Desainer, Content Creator, Penulis<br>";
-            break;
-          case "Analitis":
-            rekomendasi += "- Data Analyst, Akuntan, Peneliti<br>";
-            break;
-          case "Pemimpin":
-            rekomendasi += "- Manajer Proyek, Pengusaha, CEO<br>";
-            break;
-          case "Teliti":
-            rekomendasi += "- Quality Control, Editor, Auditor<br>";
-            break;
-          case "Petualang":
-            rekomendasi += "- Travel Blogger, Pilot, Fotografer Alam<br>";
-            break;
-        }
-      });
+      switch(sifat) {
+        case "analitis":
+          rekomendasi = "Data Scientist, Analis Keuangan, atau Software Engineer.";
+          break;
+        case "kreatif":
+          rekomendasi = "Desainer Grafis, Content Creator, atau Digital Marketer.";
+          break;
+        case "sosial":
+          rekomendasi = "Psikolog, Public Relation, atau HRD.";
+          break;
+        case "organisator":
+          rekomendasi = "Event Organizer, Manajer Proyek, atau Konsultan Bisnis.";
+          break;
+        case "teknis":
+          rekomendasi = "Teknisi Mesin, Developer Game, atau Web Developer.";
+          break;
+        default:
+          rekomendasi = "Pilih sifat yang tersedia.";
+      }
 
-      hasil.innerHTML = `<h3>Rekomendasi Karirmu:</h3><p>${rekomendasi}</p>`;
+      hasil.innerHTML = "Rekomendasi karirmu: <br>" + rekomendasi;
     }
   </script>
 
